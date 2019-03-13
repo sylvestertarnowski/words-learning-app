@@ -11,7 +11,6 @@ class AddingWords extends Component {
     handleSubmit(event) {
         const word = event.target.word.value;
         const translation = event.target.translation.value;
-        console.log(event.target.word.value);
         this.setState({
             [word]: translation
         });
