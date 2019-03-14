@@ -1,12 +1,12 @@
 import React from "react";
 
 function DisplayWords(props) {
-    let words = Object.keys(props.data);
+    let wordPairs = props.data.list;
     let displayWords = () => {
         let listOfWords = [];
-        for (let word of words) {
-            console.log(word)
-            listOfWords.push(<li>{word}</li>)
+        for (let pair of wordPairs) {
+            console.log(pair.word)
+            listOfWords.push(<li>{pair.word}</li>)
         }
         return listOfWords;
     }
