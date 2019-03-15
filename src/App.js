@@ -1,10 +1,18 @@
 import React, {Component} from "react";
-import AddingWords from "./AddingWords";
+import AddWords from "./AddWords";
+import GuessWords from "./GuessWords"
+// Create Header and Footer later on
+
 
 class App extends Component {
   render() {
     return (
-      <AddingWords />
+      <div>
+        {/* <Header /> */}
+        <AddWords />
+        <GuessWords />
+        {/* {<Footer />} */}
+      </div>
     )
   }
 }

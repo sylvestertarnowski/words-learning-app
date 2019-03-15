@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import DisplayWords from "./DisplayWords";
 
-class AddingWords extends Component {
+class AddWords extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,4 +44,4 @@ class AddingWords extends Component {
     }
 }
 
-export default AddingWords;
+export default AddWords;
