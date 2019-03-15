@@ -15,7 +15,6 @@ class AddingWords extends Component {
         const translation = event.target.translation.value;
         this.setState((prevState) => {
             const newWord = {
-                id: prevState.list.length,
                 word: word,
                 translation: translation
             }
@@ -29,14 +28,17 @@ class AddingWords extends Component {
     }
 
     render() {
+        let items = this.state.list;
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="word" placeholder="Word" id="word"/>
+                    <input type="text" name="word" placeholder="Word"/>
                     <input type="text" name="translation" placeholder="translation"/>
                     <button>Add</button>
                 </form>
-                <DisplayWords data={this.state}/>
+                <ul>
+                    {items.map(item => <DisplayWords key={item.word} data={item}/>)}
+                </ul>
             </div>
         )
     }
