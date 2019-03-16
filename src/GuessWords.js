@@ -2,7 +2,10 @@ import React, {Component} from "react";
 
 class GuessWords extends Component {
     constructor(props) {
-        
+        super(props);
+        this.state = {
+            
+        }
     }
 
     render() {

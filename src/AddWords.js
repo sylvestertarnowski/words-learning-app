@@ -5,7 +5,12 @@ class AddWords extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: [],
+            list: [
+                {
+                    word: "marchewka",
+                    translation: "carrot"
+                },
+            ],
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -27,6 +32,13 @@ class AddWords extends Component {
         event.preventDefault();
     }
 
+    handleWordGuess(event) {
+        event.preventDefault();
+        const e = event.target;
+        console.log(e);
+        event.preventDefault();
+    }
+
     render() {
         let items = this.state.list;
         return (
@@ -39,6 +51,13 @@ class AddWords extends Component {
                 <ul>
                     {items.map(item => <DisplayWords key={item.word} data={item}/>)}
                 </ul>
+                <form onSubmit={this.handleWordGuess}>
+                    <div name="wordToGuess" value={this.state.list[0].translation}>
+                        {this.state.list[0].word}
+                    </div>
+                    <input name="guessedWord" placeholder="guess" value={this.state.list[0].translation} ></input>
+                    <button>Guess</button>
+                </form>
             </div>
         )
     }
