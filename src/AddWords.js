@@ -1,16 +1,13 @@
 import React, {Component} from "react";
 import DisplayWords from "./DisplayWords";
+import GuessWords from "./GuessWords";
+import populateState from "./populateState";
 
 class AddWords extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: [
-                {
-                    word: "marchewka",
-                    translation: "carrot"
-                },
-            ],
+            list: populateState
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -44,6 +41,7 @@ class AddWords extends Component {
                 <ul>
                     {items.map(item => <DisplayWords key={item.word} data={item}/>)}
                 </ul>
+                <GuessWords data={this.state.list}/>
             </div>
         )
     }
