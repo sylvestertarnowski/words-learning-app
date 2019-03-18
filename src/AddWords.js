@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import DisplayWords from "./DisplayWords";
 import GuessWords from "./GuessWords";
 import populateState from "./populateState";
 
@@ -30,7 +29,6 @@ class AddWords extends Component {
     }
 
     render() {
-        let items = this.state.list;
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
@@ -38,9 +36,6 @@ class AddWords extends Component {
                     <input type="text" name="translation" placeholder="translation"/>
                     <button>Add</button>
                 </form>
-                <ul>
-                    {items.map(item => <DisplayWords key={item.word} data={item}/>)}
-                </ul>
                 <GuessWords data={this.state.list}/>
             </div>
         )
