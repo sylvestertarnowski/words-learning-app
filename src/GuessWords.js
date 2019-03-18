@@ -5,30 +5,37 @@ class GuessWords extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            correct: null,
             randomWord: {},
             tempWord: "",
             list: props.data
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleGuess = this.handleGuess.bind(this);
         this.pickRandomIndex = this.pickRandomIndex.bind(this);
         this.pickWord = this.pickWord.bind(this);
+        this.removeWord = this.removeWord.bind(this);
     }
 
-    // Use this.state.list as a table for random words choosing.
-    // Generate random number the length of list array
-    // use that number to pick a random set of words
-    // store the random word in State "randomWord"
-    // prepare logic for guessing the "randomWord"
-    // when guessed right, remove the word by searching it in array of objects from state
-    // re-generate new word
-
     componentDidMount() {
-        console.log(this.pickWord());
+        this.pickWord();
     }
 
     handleSubmit(event) {
+        const guess = this.state.tempWord;
+        const translation = this.state.randomWord.translation;
+        if(guess === translation) {
+            this.setState({
+                correct: true,
+            });
+            this.removeWord();
+            this.pickWord();
+        } else {
+            this.setState({
+                correct: false,
+            })
+            this.pickWord();
+        }
         event.preventDefault();
     }
 
@@ -39,10 +46,6 @@ class GuessWords extends Component {
         })
     }
 
-    handleGuess(word) {
-    
-    }
-
     pickRandomIndex() {
         const randomNum = Math.floor(Math.random()*this.state.list.length);
         return randomNum;
@@ -50,10 +53,19 @@ class GuessWords extends Component {
 
     pickWord() {
         const r = this.pickRandomIndex();
-        console.log(this.state.list[r]);
         this.setState({
             randomWord: this.state.list[r]
         })
+    }
+
+    removeWord() {
+        this.setState(prevState => {
+            const word = prevState.randomWord;
+            const arr = prevState.list;
+            return {
+                list: arr.filter(item => item.word !== word.word)
+            }
+        });
     }
 
     render() {
@@ -75,7 +87,7 @@ class GuessWords extends Component {
                     />
                     <button>Guess</button>
                 </form>
-                <h1>Hello World</h1>
+                <h1>{this.state.correct ? <span>Correct!</span> : <span>Wrong!</span>}</h1>
             </div>
         );
     }
