@@ -6,34 +6,57 @@ class AddWords extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            word: "",
+            translation: "",
             list: populateState
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleSubmit(event) {
-        const word = event.target.word.value;
-        const translation = event.target.translation.value;
         this.setState((prevState) => {
             const newWord = {
-                word: word,
-                translation: translation
+                word: prevState.word,
+                translation: prevState.translation
             }
             const newList = prevState.list;
             newList.unshift(newWord);
             return ({
+                word: "",
+                translation: "",
                 list: newList,
             })
         });
         event.preventDefault();
     }
 
+    handleChange(event) {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        })
+    }
+
     render() {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="word" placeholder="Word"/>
-                    <input type="text" name="translation" placeholder="translation"/>
+                    <input 
+                        autoFocus
+                        type="text" 
+                        name="word"
+                        value={this.state.word} 
+                        placeholder="Word"
+                        onChange={this.handleChange}
+                    />
+                    <input 
+                        type="text"
+                        name="translation" 
+                        value={this.state.translation}
+                        placeholder="translation"
+                        onChange={this.handleChange}
+                    />
                     <button>Add</button>
                 </form>
                 <GuessWords data={this.state.list}/>

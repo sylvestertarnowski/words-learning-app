@@ -15,6 +15,7 @@ class GuessWords extends Component {
         this.pickRandomIndex = this.pickRandomIndex.bind(this);
         this.pickWord = this.pickWord.bind(this);
         this.removeWord = this.removeWord.bind(this);
+        this.clearTempWord = this.clearTempWord.bind(this);
     }
 
     componentDidMount() {
@@ -25,16 +26,18 @@ class GuessWords extends Component {
         const guess = this.state.tempWord;
         const translation = this.state.randomWord.translation;
         if(guess === translation) {
-            this.setState({
+             this.setState({
                 correct: true,
             });
             this.removeWord();
             this.pickWord();
+            this.clearTempWord();
         } else {
             this.setState({
                 correct: false,
             })
             this.pickWord();
+            this.clearTempWord();
         }
         event.preventDefault();
     }
@@ -43,6 +46,12 @@ class GuessWords extends Component {
         const {name, value} = event.target;
         this.setState({
             [name]: value
+        })
+    }
+
+    clearTempWord() {
+        this.setState({
+            tempWord: "",
         })
     }
 
