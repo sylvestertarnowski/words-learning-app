@@ -30,7 +30,7 @@ class GuessWords extends Component {
                 correct: true,
             });
             this.removeWord();
-            this.pickWord();
+            // this.pickWord();
             this.clearTempWord();
         } else {
             this.setState({
@@ -74,7 +74,7 @@ class GuessWords extends Component {
             return {
                 list: arr.filter(item => item.word !== word.word)
             }
-        });
+        }, () => this.pickWord());
     }
 
     render() {
@@ -85,7 +85,11 @@ class GuessWords extends Component {
                     {items.map(item => <DisplayWords key={item.word} data={item}/>)}
                 </ul>
                 <br />
-                <h1>Guess this word: {this.state.randomWord.word}</h1>
+                {
+                    this.state.randomWord !== undefined ? 
+                    <h1>Guess this word: {this.state.randomWord.word}</h1> : 
+                    <h1>Play again?</h1>
+                }
                 <form onSubmit={this.handleSubmit}>
                     <input 
                         type="text"
