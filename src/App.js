@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AddWords from "./AddWords";
+import Words from "./Words";
 // Create Header and Footer later on
 
 
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         {/* <Header /> */}
-        <AddWords />
+        <Words />
         {/* {<Footer />} */}
       </div>
     )
