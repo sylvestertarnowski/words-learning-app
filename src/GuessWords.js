@@ -7,6 +7,10 @@ class GuessWords extends Component {
         this.state = {
             correct: null,
             randomWord: {},
+            prevWord: {
+                word: "",
+                translation: ""
+            },
             tempWord: "",
             list: props.data
         }
@@ -35,6 +39,7 @@ class GuessWords extends Component {
         } else {
             this.setState({
                 correct: false,
+                
             })
             this.pickWord();
             this.clearTempWord();
@@ -62,8 +67,11 @@ class GuessWords extends Component {
 
     pickWord() {
         const r = this.pickRandomIndex();
-        this.setState({
-            randomWord: this.state.list[r]
+        this.setState(prevState => {
+           return {
+               randomWord: this.state.list[r],
+               prevWord: prevState.randomWord 
+            }
         })
     }
 
@@ -100,7 +108,13 @@ class GuessWords extends Component {
                     />
                     <button>Guess</button>
                 </form>
-                <h1>{this.state.correct ? <span>Correct!</span> : <span>Wrong!</span>}</h1>
+                <h1>
+                {
+                    this.state.correct ? 
+                    <span>Correct!</span> : 
+                    <span>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>
+                }
+                </h1>
             </div>
         );
     }
