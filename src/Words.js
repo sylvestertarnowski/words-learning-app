@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import GuessWords from "./GuessWords";
 import populateState from "./populateState";
+import PostWords from "./PostWords";
 
 class AddWords extends Component {
     constructor(props) {
@@ -59,7 +60,8 @@ class AddWords extends Component {
                     />
                     <button>Add</button>
                 </form>
-                <GuessWords data={this.state.list}/>
+                <PostWords data={this.state.list} />
+                <GuessWords data={this.state.list} />
             </div>
         )
     }
