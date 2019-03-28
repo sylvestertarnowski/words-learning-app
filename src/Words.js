@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import GuessWords from "./GuessWords";
-import populateState from "./populateState";
+// import populateState from "./populateState";
 import PostWords from "./PostWords";
 
 class AddWords extends Component {
@@ -9,10 +9,26 @@ class AddWords extends Component {
         this.state = {
             word: "",
             translation: "",
-            list: populateState
+            list: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        fetch('/words/default', {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(data => this.setState({
+            list: data.list
+        }))
+        .then(() => console.log(this.state.list))
+        .catch(err => console.log(err));
     }
 
     handleSubmit(event) {
