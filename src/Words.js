@@ -1,34 +1,43 @@
 import React, {Component} from "react";
 import GuessWords from "./GuessWords";
-// import populateState from "./populateState";
+import populateState from "./populateState";
 import PostWords from "./PostWords";
 
-class AddWords extends Component {
+class Words extends Component {
     constructor(props) {
         super(props);
         this.state = {
             word: "",
             translation: "",
-            list: []
+            list: populateState
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        fetch('/words/default', {
+    updateStateWithData = () => {
+        this.callWordsDownload()
+            .then(res => this.setState(prevState => {
+                return { list: [...prevState.list, ...res.list] }
+            }))
+            .then(() => console.log(this.state.list))
+            .catch(err => console.log(err));
+    }
+
+    callWordsDownload = async () => {
+        const response = await fetch('/words/default', {
             method: "GET",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             }
-        })
-        .then(res => res.json())
-        .then(data => this.setState({
-            list: data.list
-        }))
-        .then(() => console.log(this.state.list))
-        .catch(err => console.log(err));
+        });
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(body.message)
+        }
+        return body;
     }
 
     handleSubmit(event) {
@@ -45,6 +54,7 @@ class AddWords extends Component {
                 list: newList,
             })
         });
+        console.log(this.state.list)
         event.preventDefault();
     }
 
@@ -75,7 +85,8 @@ class AddWords extends Component {
                         onChange={this.handleChange}
                     />
                     <button>Add</button>
-                </form>
+                </form> 
+                <button onClick={this.updateStateWithData}>Download List from Server</button>
                 <PostWords data={this.state.list} />
                 <GuessWords data={this.state.list} />
             </div>
@@ -83,4 +94,4 @@ class AddWords extends Component {
     }
 }
 
-export default AddWords;
+export default Words;

@@ -1,9 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 
-function DisplayWords(props) {
-    return (
-        <li>{props.data.word}</li>    
-    )
+class DisplayWords extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            word: props.data.word
+        }
+    }
+    
+    render() {
+        return (
+            <li>{this.state.word}</li>
+        )
+    }
 }
 
 export default DisplayWords;

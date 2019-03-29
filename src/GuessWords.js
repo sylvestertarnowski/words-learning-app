@@ -12,7 +12,7 @@ class GuessWords extends Component {
                 translation: ""
             },
             tempWord: "",
-            list: props.data
+            list: this.props.data
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -34,7 +34,6 @@ class GuessWords extends Component {
                 correct: true,
             });
             this.removeWord();
-            // this.pickWord();
             this.clearTempWord();
         } else {
             this.setState({
@@ -87,6 +86,7 @@ class GuessWords extends Component {
 
     render() {
         let items = this.state.list;
+        console.log(this.state.list)
         return (
             <div>
                 <ul>
