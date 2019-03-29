@@ -1,5 +1,6 @@
 export default [
     {
+        _id: "1",
         word: "marchewka",
         translation: "carrot"
     },

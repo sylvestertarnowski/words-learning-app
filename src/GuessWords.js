@@ -86,7 +86,6 @@ class GuessWords extends Component {
 
     render() {
         let items = this.state.list;
-        console.log(this.state.list)
         return (
             <div>
                 <ul>

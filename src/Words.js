@@ -18,9 +18,15 @@ class Words extends Component {
     updateStateWithData = () => {
         this.callWordsDownload()
             .then(res => this.setState(prevState => {
-                return { list: [...prevState.list, ...res.list] }
+                let newList = res.list.concat(prevState.list);
+                console.log(newList);
+                return { 
+                    word: "",
+                    translation: "",
+                    list: newList 
+                }
             }))
-            .then(() => console.log(this.state.list))
+            // .then(() => console.log(this.state.list))
             .catch(err => console.log(err));
     }
 
