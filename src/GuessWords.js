@@ -12,7 +12,7 @@ class GuessWords extends Component {
                 translation: ""
             },
             tempWord: "",
-            list: this.props.data
+            list: props.data
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -26,9 +26,15 @@ class GuessWords extends Component {
         this.pickWord();
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            list: nextProps.data
+        })
+    }
+
     handleSubmit(event) {
-        const guess = this.state.tempWord;
-        const translation = this.state.randomWord.translation;
+        let guess = this.state.tempWord;
+        let translation = this.state.randomWord.translation;
         if(guess === translation) {
              this.setState({
                 correct: true,
@@ -60,12 +66,12 @@ class GuessWords extends Component {
     }
 
     pickRandomIndex() {
-        const randomNum = Math.floor(Math.random()*this.state.list.length);
+        let randomNum = Math.floor(Math.random()*this.state.list.length);
         return randomNum;
     }
 
     pickWord() {
-        const r = this.pickRandomIndex();
+        let r = this.pickRandomIndex();
         this.setState(prevState => {
            return {
                randomWord: this.state.list[r],
@@ -76,8 +82,8 @@ class GuessWords extends Component {
 
     removeWord() {
         this.setState(prevState => {
-            const word = prevState.randomWord;
-            const arr = prevState.list;
+            let word = prevState.randomWord;
+            let arr = prevState.list;
             return {
                 list: arr.filter(item => item.word !== word.word)
             }

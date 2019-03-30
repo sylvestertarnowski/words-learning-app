@@ -19,14 +19,13 @@ class Words extends Component {
         this.callWordsDownload()
             .then(res => this.setState(prevState => {
                 let newList = res.list.concat(prevState.list);
-                console.log(newList);
                 return { 
                     word: "",
                     translation: "",
                     list: newList 
                 }
-            }))
-            // .then(() => console.log(this.state.list))
+            }, () => console.log(this.state.list)))
+
             .catch(err => console.log(err));
     }
 

@@ -12,6 +12,12 @@ class PostWords extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            list: nextProps.data
+        })
+    }
+
     handleSave(event) {
         event.preventDefault();
         fetch('/words/add', {
