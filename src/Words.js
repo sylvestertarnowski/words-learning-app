@@ -72,7 +72,7 @@ class Words extends Component {
 
     render() {
         return (
-            <div>
+            <div className="words-item">
                 <form onSubmit={this.handleSubmit}>
                     <input 
                         autoFocus
