@@ -73,24 +73,27 @@ class Words extends Component {
     render() {
         return (
             <div className="words-item">
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                        autoFocus
-                        type="text" 
-                        name="word"
-                        value={this.state.word} 
-                        placeholder="Word"
-                        onChange={this.handleChange}
-                    />
-                    <input 
-                        type="text"
-                        name="translation" 
-                        value={this.state.translation}
-                        placeholder="translation"
-                        onChange={this.handleChange}
-                    />
-                    <button>Add</button>
-                </form> 
+                <div className="add-words-form">
+                <div className="add-words-form-title"><h2>Add word to list</h2></div>
+                    <form onSubmit={this.handleSubmit}>
+                        <input 
+                            autoFocus
+                            type="text" 
+                            name="word"
+                            value={this.state.word} 
+                            placeholder="Word"
+                            onChange={this.handleChange}
+                        />
+                        <input 
+                            type="text"
+                            name="translation" 
+                            value={this.state.translation}
+                            placeholder="translation"
+                            onChange={this.handleChange}
+                        />
+                        <button>Add</button>
+                    </form>
+                </div> 
                 <button onClick={this.updateStateWithData}>Download List from Server</button>
                 <PostWords data={this.state.list} />
                 <GuessWords data={this.state.list} />

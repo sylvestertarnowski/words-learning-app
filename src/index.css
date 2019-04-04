@@ -1,5 +1,9 @@
+* {
+    padding: 0;
+    margin: 0;
+}
 html {
-    background: rgba(145, 133, 133, 0.5);
+    background: #0d47a1;
     font-family: 'Roboto', 'sans-serif';
     margin: 0;
     padding: 0;
@@ -16,12 +20,29 @@ html {
     padding: 20px;
 }
 
+a {
+    color: white;
+    font-size: 10px;
+}
+
 input {
     margin: 4px;
 }
 
+.add-words-form-title {
+    background: #002171;
+    color: #fff;
+    display: flex;
+}
+
 .header {
-    background:#1e88e5;
+    background:#002171;
     color: #fff;
     padding: 10px;
+}
+
+.add-words-form {
+    background: #fff;
+    padding: 10px;
+    display: grid;
 }
