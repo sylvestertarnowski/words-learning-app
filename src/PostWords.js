@@ -20,9 +20,10 @@ class PostWords extends Component {
 
     handleSave(event) {
         event.preventDefault();
+        console.log(this.state);
         fetch('/words/add', {
-            method: 'POST',
-            body: JSON.stringify(this.state)
+            method: 'post',
+            body: JSON.stringify(this.state),
         })
         .then(res => res.json())
         .then(data => console.log(data))
@@ -38,7 +39,8 @@ class PostWords extends Component {
 
     render() { 
         return (
-            <div>
+            <div className="post-words-items">
+            <div className="add-words-form-title"><h2>Save words to Database</h2></div>
                 <input 
                     type="text" 
                     value={this.state.name} 

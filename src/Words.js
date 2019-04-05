@@ -74,7 +74,9 @@ class Words extends Component {
         return (
             <div className="words-item">
                 <div className="add-words-form">
-                <div className="add-words-form-title"><h2>Add word to list</h2></div>
+                    <div className="add-words-form-title">
+                        <h2>Add word to list</h2>
+                    </div>
                     <form onSubmit={this.handleSubmit}>
                         <input 
                             autoFocus
@@ -93,8 +95,8 @@ class Words extends Component {
                         />
                         <button>Add</button>
                     </form>
+                    <button onClick={this.updateStateWithData}>Download List from Server</button>
                 </div> 
-                <button onClick={this.updateStateWithData}>Download List from Server</button>
                 <PostWords data={this.state.list} />
                 <GuessWords data={this.state.list} />
             </div>
