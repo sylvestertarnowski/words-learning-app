@@ -32,7 +32,7 @@ class App extends Component {
       <div className="main-container">
         <Header />
         <Words />
-        <p>{this.state.data}</p>
+        {console.log(this.state.data)}
       </div>
     )
   }

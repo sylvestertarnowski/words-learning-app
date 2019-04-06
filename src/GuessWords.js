@@ -93,16 +93,18 @@ class GuessWords extends Component {
     render() {
         let items = this.state.list;
         return (
-            <div>
+            <div className="guess-words-body">
                 <ul>
-                    {items.map(item => <DisplayWords key={item.word} data={item}/>)}
+                    {items.map(item => <DisplayWords key={item._id} data={item}/>)}
                 </ul>
                 <br />
-                {
+                <div className="guess-words-title">{
                     this.state.randomWord !== undefined ? 
-                    <h1>Guess this word: {this.state.randomWord.word}</h1> : 
+                    <h1>Guess this word: <span style={{textDecoration: "italic"}}>{this.state.randomWord.word}</span></h1> : 
                     <h1>Play again?</h1>
                 }
+                </div>
+                <div>
                 <form onSubmit={this.handleSubmit}>
                     <input 
                         type="text"
@@ -113,11 +115,12 @@ class GuessWords extends Component {
                     />
                     <button>Guess</button>
                 </form>
+                </div>
                 <h1>
                 {
                     this.state.correct ? 
-                    <span>Correct!</span> : 
-                    <span>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>
+                    <span style={{color: "green"}}>Correct!</span> : 
+                    <span style={{color: "red"}}>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>
                 }
                 </h1>
             </div>

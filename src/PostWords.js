@@ -41,21 +41,23 @@ class PostWords extends Component {
         return (
             <div className="post-words-items">
             <div className="add-words-form-title"><h2>Save words to Database</h2></div>
-                <input 
-                    type="text" 
-                    value={this.state.name} 
-                    name="name" 
-                    onChange={this.handleChange}
-                    placeholder="Unique List Name" 
-                />
-                <input
-                    type="text"
-                    value={this.state.language}
-                    name="language"
-                    onChange={this.handleChange} 
-                    placeholder="Language"
-                />
-                <button type="submit" onClick={this.handleSave}>Save Words</button>
+                <div className="post-words-form">
+                    <input 
+                        type="text" 
+                        value={this.state.name} 
+                        name="name" 
+                        onChange={this.handleChange}
+                        placeholder="Unique List Name" 
+                    />
+                    <input
+                        type="text"
+                        value={this.state.language}
+                        name="language"
+                        onChange={this.handleChange} 
+                        placeholder="Language"
+                    />
+                    <button type="submit" onClick={this.handleSave}>Save Words</button>
+                </div>
             </div>
         )   
     }
