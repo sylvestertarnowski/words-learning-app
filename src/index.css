@@ -49,6 +49,10 @@ h1 {
     text-align: center;
 }
 
+h1, h2 {
+    font-weight: normal;
+}
+
 .add-words-form {
     background: #eee;
     display: grid;
