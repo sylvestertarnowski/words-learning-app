@@ -117,6 +117,7 @@ class GuessWords extends Component {
                 </form>
                 </div>
                 <h1>
+                {/* conditional rendering for answer feedback */}
                 {
                     this.state.correct ? 
                     <span style={{color: "green"}}>Correct!</span> : 
