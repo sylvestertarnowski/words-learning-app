@@ -23,6 +23,9 @@ class PostWords extends Component {
         console.log(this.state);
         fetch('/words/add', {
             method: 'post',
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(this.state),
         })
         .then(res => res.json())

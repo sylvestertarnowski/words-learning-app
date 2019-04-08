@@ -9,7 +9,7 @@ class Words extends Component {
         this.state = {
             word: "",
             translation: "",
-            list: populateState
+            list: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +30,7 @@ class Words extends Component {
     }
 
     callWordsDownload = async () => {
-        const response = await fetch('/words/default', {
+        const response = await fetch('/words/find', {
             method: "GET",
             headers: {
                 "Accept": "application/json",
