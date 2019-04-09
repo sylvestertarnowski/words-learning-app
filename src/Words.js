@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import GuessWords from "./GuessWords";
-import populateState from "./populateState";
+// import populateState from "./populateState";
 import PostWords from "./PostWords";
+import DisplayLists from "./DisplayLists";
 
 class Words extends Component {
     constructor(props) {
@@ -9,10 +10,12 @@ class Words extends Component {
         this.state = {
             word: "",
             translation: "",
+            wordsList: [],
             list: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.downloadAllLists = this.downloadAllLists.bind(this);
     }
 
     updateStateWithData = () => {
@@ -45,6 +48,19 @@ class Words extends Component {
         return body;
     }
 
+    downloadAllLists() {
+        fetch('/words/all', {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => this.setState({ wordsList: data }))
+        .catch(err => console.error(err));
+    }
+
     handleSubmit(event) {
         this.setState((prevState) => {
             const newWord = {
@@ -71,6 +87,7 @@ class Words extends Component {
     }
 
     render() {
+        let items = this.state.wordsList;
         return (
             <div className="words-item">
                 <div className="add-words-form">
@@ -96,6 +113,10 @@ class Words extends Component {
                         <button>Add</button>
                     </form>
                     <button onClick={this.updateStateWithData}>Download List from Server</button>
+                    <button onClick={this.downloadAllLists}>Display all saved lists</button>
+                    <ul>
+                        {items.map(item => <DisplayLists key={item.name} data={item} />)}
+                    </ul>
                 </div> 
                 <PostWords data={this.state.list} />
                 <GuessWords data={this.state.list} />

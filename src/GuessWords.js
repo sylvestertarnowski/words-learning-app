@@ -104,26 +104,26 @@ class GuessWords extends Component {
                     <h1>Play again?</h1>
                 }
                 </div>
-                <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                        type="text"
-                        name="tempWord"
-                        placeholder="guess"
-                        value={this.state.tempWord}
-                        onChange={this.handleChange}
-                    />
-                    <button>Guess</button>
-                </form>
+                    <h1 className="answer-feedback">
+                        {/* conditional rendering for answer feedback */}
+                        {
+                            this.state.correct ? 
+                            <span style={{color: "green"}}>Correct!</span> : 
+                            <span style={{color: "red"}}>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>
+                        }
+                    </h1>
+                <div className="guess-words">
+                    <form onSubmit={this.handleSubmit}>
+                        <input 
+                            type="text"
+                            name="tempWord"
+                            placeholder="guess"
+                            value={this.state.tempWord}
+                            onChange={this.handleChange}
+                        />
+                        <button>Guess</button>
+                    </form>
                 </div>
-                <h1>
-                {/* conditional rendering for answer feedback */}
-                {
-                    this.state.correct ? 
-                    <span style={{color: "green"}}>Correct!</span> : 
-                    <span style={{color: "red"}}>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>
-                }
-                </h1>
             </div>
         );
     }

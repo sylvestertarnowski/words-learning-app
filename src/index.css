@@ -91,3 +91,11 @@ ul {
     display: grid;
     padding-left:30%;
 }
+
+.answer-feedback {
+    padding-top: 20px;
+}
+
+.guess-words {
+    padding-bottom: 40px;
+}
