@@ -115,7 +115,9 @@ class Words extends Component {
                     <button onClick={this.updateStateWithData}>Download List from Server</button>
                     <button onClick={this.downloadAllLists}>Display all saved lists</button>
                     <ul>
-                        {items.map(item => <DisplayLists key={item.name} data={item} />)}
+                        {
+                            items.map(item => <DisplayLists key={item.name} data={item} />)
+                        }
                     </ul>
                 </div> 
                 <PostWords data={this.state.list} />
