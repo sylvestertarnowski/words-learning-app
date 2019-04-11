@@ -89,7 +89,7 @@ ul {
     padding-top: 20px;
     padding-bottom: 20px;
     display: grid;
-    padding-left:30%;
+    padding-left: 10%;
 }
 
 .answer-feedback {
@@ -98,4 +98,24 @@ ul {
 
 .guess-words {
     padding-bottom: 40px;
+}
+ /* Downloaded lists of words */
+.lists-of-words {
+    display: flex;
+    direction: row;
+    justify-content: flex-end;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.list-span {
+    padding: 5px;
+    margin: 5px;
+    margin-right: auto;
+}
+
+.list-button {
+    min-width: 20px;
+    padding: 5px;
+    margin: 5px;
 }

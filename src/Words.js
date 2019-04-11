@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import GuessWords from "./GuessWords";
 // import populateState from "./populateState";
 import PostWords from "./PostWords";
-import DisplayLists from "./DisplayLists";
+// import DisplayLists from "./DisplayLists";
 
 class Words extends Component {
     constructor(props) {
@@ -116,7 +116,13 @@ class Words extends Component {
                     <button onClick={this.downloadAllLists}>Display all saved lists</button>
                     <ul>
                         {
-                            items.map(item => <DisplayLists key={item.name} data={item} />)
+                            items.map(item => 
+                                <li key={item._id} className="lists-of-words">
+                                    <span className="list-span">List name: {item.name} - Language: {item.language}</span>
+                                    <button name={item.name} className="list-button">Use</button>
+                                    <button name={item.name} className="list-button">Delete</button>
+                                </li>
+                            )
                         }
                     </ul>
                 </div> 
