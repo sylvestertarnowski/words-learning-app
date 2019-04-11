@@ -16,6 +16,7 @@ class Words extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.downloadAllLists = this.downloadAllLists.bind(this);
+        this.useSelectedList = this.useSelectedList.bind(this);
     }
 
     updateStateWithData = () => {
@@ -59,6 +60,26 @@ class Words extends Component {
         .then(response => response.json())
         .then(data => this.setState({ wordsList: data }))
         .catch(err => console.error(err));
+    }
+
+    useSelectedList(event) {
+        const listName = event.target.name;
+        console.log(listName);
+        fetch('/words/find', {
+            method: "POST",
+            header: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ name: listName })
+        })
+        .then(response => response.json())
+        .then(data => this.setState({ list: data.list}))
+        .catch(err => console.error(err));
+    }
+
+    deleteSelectedList() {
+
     }
 
     handleSubmit(event) {
@@ -119,8 +140,8 @@ class Words extends Component {
                             items.map(item => 
                                 <li key={item._id} className="lists-of-words">
                                     <span className="list-span">List name: {item.name} - Language: {item.language}</span>
-                                    <button name={item.name} className="list-button">Use</button>
-                                    <button name={item.name} className="list-button">Delete</button>
+                                    <button name={item.name} className="list-button" onClick={this.useSelectedList}>Use</button>
+                                    <button name={item.name} className="list-button" onClick={this.deleteSelectedList}>Delete</button>
                                 </li>
                             )
                         }
