@@ -11,12 +11,14 @@ class Words extends Component {
             word: "",
             translation: "",
             wordsList: [],
-            list: []
+            list: [],
+            deleteReqResponse: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.downloadAllLists = this.downloadAllLists.bind(this);
         this.useSelectedList = this.useSelectedList.bind(this);
+        this.findAndDeleteList = this.findAndDeleteList.bind(this);
     }
 
     updateStateWithData = () => {
@@ -65,21 +67,40 @@ class Words extends Component {
     useSelectedList(event) {
         const listName = event.target.name;
         console.log(listName);
-        fetch('/words/find', {
-            method: "POST",
+        fetch('/words/find?name=' + listName, {
+            method: "GET",
             header: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ name: listName })
         })
         .then(response => response.json())
         .then(data => this.setState({ list: data.list}))
         .catch(err => console.error(err));
     }
 
-    deleteSelectedList() {
+    deleteSelectedList(event) {
+        const listName = event.target.name;
+        console.log(listName);
+        fetch('/words/delete?name=' + listName, {
+            method: 'DELETE',
+            header: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => this.setState({ deleteReqResponse: data }, this.findAndDeleteList()))
+        .then(alert(`The list called "${listName}" was deleted sucessfully!`))
+        .catch(err => console.error(err))
+    }
 
+    findAndDeleteList(name) {
+        const lists = this.state.wordsList;
+        const filteredList = lists.filter(list => list.name!==name);
+        this.setState({
+            wordsList: filteredList
+        })
     }
 
     handleSubmit(event) {
