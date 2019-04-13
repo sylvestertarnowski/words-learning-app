@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import GuessWords from "./GuessWords";
-// import populateState from "./populateState";
 import PostWords from "./PostWords";
-// import DisplayLists from "./DisplayLists";
 
 class Words extends Component {
     constructor(props) {
@@ -18,37 +16,8 @@ class Words extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.downloadAllLists = this.downloadAllLists.bind(this);
         this.useSelectedList = this.useSelectedList.bind(this);
+        this.deleteSelectedList = this.deleteSelectedList.bind(this);
         this.findAndDeleteList = this.findAndDeleteList.bind(this);
-    }
-
-    updateStateWithData = () => {
-        this.callWordsDownload()
-            .then(res => this.setState(prevState => {
-                let newList = res.list.concat(prevState.list);
-                return { 
-                    word: "",
-                    translation: "",
-                    list: newList 
-                }
-            }, () => console.log(this.state.list)))
-
-            .catch(err => console.log(err));
-    }
-
-    callWordsDownload = async () => {
-        const response = await fetch('/words/find', {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        });
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message)
-        }
-        return body;
     }
 
     downloadAllLists() {
@@ -89,9 +58,10 @@ class Words extends Component {
                 "Content-Type": "application/json"
             }
         })
-        .then(response => response.json())
-        .then(data => this.setState({ deleteReqResponse: data }, this.findAndDeleteList()))
-        .then(alert(`The list called "${listName}" was deleted sucessfully!`))
+        .then(res => res.json())
+        .then(data => this.setState({ deleteReqResponse: data }, this.findAndDeleteList(listName)))
+        .then(console.log(this.state.deleteReqResponse))
+        .then(console.log(`The list called "${listName}" was deleted sucessfully!`))
         .catch(err => console.error(err))
     }
 
@@ -154,7 +124,6 @@ class Words extends Component {
                         />
                         <button>Add</button>
                     </form>
-                    <button onClick={this.updateStateWithData}>Download List from Server</button>
                     <button onClick={this.downloadAllLists}>Display all saved lists</button>
                     <ul>
                         {

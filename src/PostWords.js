@@ -20,7 +20,6 @@ class PostWords extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        console.log(this.state);
         fetch('/words/add', {
             method: 'post',
             headers: {
@@ -29,7 +28,6 @@ class PostWords extends Component {
             body: JSON.stringify(this.state),
         })
         .then(res => res.json())
-        .then(data => console.log(data))
         .catch(err => console.error(err))
     }
 

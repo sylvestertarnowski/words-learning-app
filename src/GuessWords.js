@@ -5,14 +5,14 @@ class GuessWords extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            correct: null,
+            correct: undefined,
             randomWord: {},
             prevWord: {
                 word: "",
                 translation: ""
             },
             tempWord: "",
-            list: props.data
+            list: [],
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,20 +22,34 @@ class GuessWords extends Component {
         this.clearTempWord = this.clearTempWord.bind(this);
     }
 
-    componentDidMount() {
-        this.pickWord();
-    }
+    // componentDidMount() {
+    //     this.pickWord();
+    // }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             list: nextProps.data
+        }, () => {
+            if (this.state.list[0]) {
+                this.pickWord()
+                return;
+            }
+            return;
         })
     }
 
     handleSubmit(event) {
-        let guess = this.state.tempWord;
-        let translation = this.state.randomWord.translation;
-        if(guess === translation) {
+        event.preventDefault();
+        const {tempWord, randomWord, list} = this.state;
+        if(randomWord === undefined) {
+            if(list[0]) {
+                this.pickWord()
+                return;
+            }
+            alert("Use another list to restart")
+            return;
+        }
+        if(tempWord === randomWord.translation) {
              this.setState({
                 correct: true,
             });
@@ -49,7 +63,6 @@ class GuessWords extends Component {
             this.pickWord();
             this.clearTempWord();
         }
-        event.preventDefault();
     }
 
     handleChange(event) {
@@ -87,11 +100,24 @@ class GuessWords extends Component {
             return {
                 list: arr.filter(item => item.word !== word.word)
             }
-        }, () => this.pickWord());
+        }, () => {
+            if(this.state.list[0] === undefined) {
+                return;
+            }
+            this.pickWord()
+        });
     }
 
     render() {
         let items = this.state.list;
+        let wrong = () => {
+            if(!this.state.prevWord.word) {
+                return(
+                    <span style={{color: "red"}}></span>
+                )
+            }
+            return (<span style={{color: "red"}}>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>)
+        }
         return (
             <div className="guess-words-body">
                 <ul>
@@ -109,7 +135,7 @@ class GuessWords extends Component {
                         {
                             this.state.correct ? 
                             <span style={{color: "green"}}>Correct!</span> : 
-                            <span style={{color: "red"}}>Wrong! {this.state.prevWord.word} - {this.state.prevWord.translation}</span>
+                            wrong
                         }
                     </h1>
                 <div className="guess-words">
