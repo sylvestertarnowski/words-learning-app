@@ -111,7 +111,7 @@ class GuessWords extends Component {
     render() {
         let items = this.state.list;
         let wrong = () => {
-            if(!this.state.prevWord.word) {
+            if(!this.state.prevWord) {
                 return(
                     <span style={{color: "red"}}></span>
                 )
@@ -135,7 +135,7 @@ class GuessWords extends Component {
                         {
                             this.state.correct ? 
                             <span style={{color: "green"}}>Correct!</span> : 
-                            wrong
+                            wrong()
                         }
                     </h1>
                 <div className="guess-words">
