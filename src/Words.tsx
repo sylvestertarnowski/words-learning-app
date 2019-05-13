@@ -38,7 +38,7 @@ class Words extends Component {
         console.log(listName);
         fetch('/words/find?name=' + listName, {
             method: "GET",
-            header: {
+            headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
@@ -53,15 +53,15 @@ class Words extends Component {
         console.log(listName);
         fetch('/words/delete?name=' + listName, {
             method: 'DELETE',
-            header: {
+            headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         })
         .then(res => res.json())
         .then(data => this.setState({ deleteReqResponse: data }, this.findAndDeleteList(listName)))
-        .then(console.log(this.state.deleteReqResponse))
-        .then(console.log(`The list called "${listName}" was deleted sucessfully!`))
+        .then(() => console.log(this.state.deleteReqResponse))
+        .then(() => console.log(`The list called "${listName}" was deleted sucessfully!`))
         .catch(err => console.error(err))
     }
 
