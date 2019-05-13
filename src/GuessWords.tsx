@@ -1,6 +1,21 @@
 import React, {Component} from "react";
 import DisplayWords from "./DisplayWords";
 
+type S = {
+    correct: any;
+    randomWord: {
+        _id?: number;
+        word?: string;
+        translation?: string;
+    };
+    prevWord: {
+        word: string;
+        translation: string;
+    };
+    tempWord: string;
+    list: any[];
+}
+
 class GuessWords extends Component {
     constructor(props) {
         super(props);
