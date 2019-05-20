@@ -2,16 +2,26 @@ import React, {Component} from "react";
 import GuessWords from "./GuessWords";
 import PostWords from "./PostWords";
 
-class Words extends Component {
+type S = {
+    word: string;
+    translation: string;
+    wordsList: any[];
+    list: any[];
+    deleteReqResponse: string;
+}
+
+type P = any;
+
+class Words extends Component<P, S> {
+    readonly state = {
+        word: "",
+        translation: "",
+        wordsList: [],
+        list: [],
+        deleteReqResponse: ""
+    }
     constructor(props) {
         super(props);
-        this.state = {
-            word: "",
-            translation: "",
-            wordsList: [],
-            list: [],
-            deleteReqResponse: ""
-        }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.downloadAllLists = this.downloadAllLists.bind(this);
@@ -59,7 +69,7 @@ class Words extends Component {
             }
         })
         .then(res => res.json())
-        .then(data => this.setState({ deleteReqResponse: data }, this.findAndDeleteList(listName)))
+        .then(data => this.setState({ deleteReqResponse: data }, () => this.findAndDeleteList(listName)))
         .then(() => console.log(this.state.deleteReqResponse))
         .then(() => console.log(`The list called "${listName}" was deleted sucessfully!`))
         .catch(err => console.error(err))
@@ -85,7 +95,7 @@ class Words extends Component {
                 word: "",
                 translation: "",
                 list: newList,
-            })
+            } as S)
         });
         console.log(this.state.list)
         event.preventDefault();
@@ -95,7 +105,7 @@ class Words extends Component {
         const {name, value} = event.target;
         this.setState({
             [name]: value
-        })
+        } as S)
     }
 
     render() {

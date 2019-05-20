@@ -16,19 +16,24 @@ type S = {
     list: any[];
 }
 
-class GuessWords extends Component {
+type P = any;
+
+class GuessWords extends Component<P,S> {
+    readonly state = {
+        correct: undefined,
+        randomWord: {
+            word: "",
+            translation: "",
+        },
+        prevWord: {
+            word: "",
+            translation: "",
+        },
+        tempWord: "",
+        list: [],
+    }
     constructor(props) {
         super(props);
-        this.state = {
-            correct: undefined,
-            randomWord: {},
-            prevWord: {
-                word: "",
-                translation: ""
-            },
-            tempWord: "",
-            list: [],
-        }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.pickRandomIndex = this.pickRandomIndex.bind(this);
@@ -84,7 +89,7 @@ class GuessWords extends Component {
         const {name, value} = event.target;
         this.setState({
             [name]: value
-        })
+        } as S)
     }
 
     clearTempWord() {
@@ -104,7 +109,7 @@ class GuessWords extends Component {
            return {
                randomWord: this.state.list[r],
                prevWord: prevState.randomWord 
-            }
+            } as S;
         })
     }
 

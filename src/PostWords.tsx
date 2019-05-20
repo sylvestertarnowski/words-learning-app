@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 
-class PostWords extends Component {
+type S = any;
+type P = any;
+
+class PostWords extends Component<P, S> {
+    readonly state = {
+        name: "",
+        language: "",
+        list: this.props.data
+    }
     constructor(props) {
         super(props);
-        this.state = {
-            name: "",
-            language: "",
-            list: props.data
-        }
         this.handleSave = this.handleSave.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
