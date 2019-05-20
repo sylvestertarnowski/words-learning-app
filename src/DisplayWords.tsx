@@ -1,6 +1,12 @@
 import React from "react";
 
-function DisplayWords(props) {
+type P = {
+    data: {
+        word: string;
+    }
+}
+
+const DisplayWords: React.FC<P> = (props) => {
     return (
         <li>{props.data.word}</li>    
     )

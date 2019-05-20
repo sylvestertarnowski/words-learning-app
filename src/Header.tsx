@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header() {
+const Header: React.FC = () => {
     return (
         <div className="header">
             <h1>Words Learning App</h1>

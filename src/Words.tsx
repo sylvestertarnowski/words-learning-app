@@ -22,15 +22,9 @@ class Words extends Component<P, S> {
     }
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.downloadAllLists = this.downloadAllLists.bind(this);
-        this.useSelectedList = this.useSelectedList.bind(this);
-        this.deleteSelectedList = this.deleteSelectedList.bind(this);
-        this.findAndDeleteList = this.findAndDeleteList.bind(this);
     }
 
-    downloadAllLists() {
+    downloadAllLists = () => {
         fetch('/words/all', {
             method: "GET",
             headers: {
@@ -43,7 +37,7 @@ class Words extends Component<P, S> {
         .catch(err => console.error(err));
     }
 
-    useSelectedList(event) {
+    useSelectedList = (event) => {
         const listName = event.target.name;
         console.log(listName);
         fetch('/words/find?name=' + listName, {
@@ -58,7 +52,7 @@ class Words extends Component<P, S> {
         .catch(err => console.error(err));
     }
 
-    deleteSelectedList(event) {
+    deleteSelectedList = (event) => {
         const listName = event.target.name;
         console.log(listName);
         fetch('/words/delete?name=' + listName, {
@@ -75,7 +69,7 @@ class Words extends Component<P, S> {
         .catch(err => console.error(err))
     }
 
-    findAndDeleteList(name) {
+    findAndDeleteList = (name) => {
         const lists = this.state.wordsList;
         const filteredList = lists.filter(list => list.name!==name);
         this.setState({
@@ -83,7 +77,7 @@ class Words extends Component<P, S> {
         })
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         this.setState((prevState) => {
             const newWord = {
                 word: prevState.word,
@@ -101,7 +95,7 @@ class Words extends Component<P, S> {
         event.preventDefault();
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const {name, value} = event.target;
         this.setState({
             [name]: value
