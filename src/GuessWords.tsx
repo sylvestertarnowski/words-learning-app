@@ -32,7 +32,7 @@ class GuessWords extends Component<P,S> {
         tempWord: "",
         list: [],
     }
-    constructor(props) {
+    constructor(props: P) {
         super(props);
     }
 
@@ -40,7 +40,7 @@ class GuessWords extends Component<P,S> {
     //     this.pickWord();
     // }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: any) {
         this.setState({
             list: nextProps.data
         }, () => {
@@ -52,7 +52,7 @@ class GuessWords extends Component<P,S> {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         const {tempWord, randomWord, list} = this.state;
         if(randomWord === undefined) {
@@ -79,7 +79,7 @@ class GuessWords extends Component<P,S> {
         }
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const {name, value} = event.target;
         this.setState({
             [name]: value
@@ -99,11 +99,11 @@ class GuessWords extends Component<P,S> {
 
     pickWord = () => {
         let r = this.pickRandomIndex();
-        this.setState(prevState => {
+        this.setState((prevState) => {
            return {
                randomWord: this.state.list[r],
                prevWord: prevState.randomWord 
-            } as S;
+            } as any;
         })
     }
 
@@ -135,7 +135,7 @@ class GuessWords extends Component<P,S> {
         return (
             <div className="guess-words-body">
                 <ul>
-                    {items.map(item => <DisplayWords key={item._id} data={item}/>)}
+                    {items.map((item: any) => <DisplayWords key={item._id} data={item}/>)}
                 </ul>
                 <br />
                 <div className="guess-words-title">{
