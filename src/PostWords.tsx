@@ -9,19 +9,19 @@ class PostWords extends Component<P, S> {
         language: "",
         list: this.props.data
     }
-    constructor(props) {
+    constructor(props: P) {
         super(props);
         this.handleSave = this.handleSave.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: any) {
         this.setState({
             list: nextProps.data
-        })
+        } as any)
     }
 
-    handleSave(event) {
+    handleSave(event: any) {
         event.preventDefault();
         fetch('/words/add', {
             method: 'post',
@@ -34,7 +34,7 @@ class PostWords extends Component<P, S> {
         .catch(err => console.error(err))
     }
 
-    handleChange(event) {
+    handleChange(event: any) {
         const {name, value} = event.target;
         this.setState({
             [name]: value
