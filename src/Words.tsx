@@ -20,7 +20,7 @@ class Words extends Component<P, S> {
         list: [],
         deleteReqResponse: ""
     }
-    constructor(props) {
+    constructor(props: P) {
         super(props);
     }
 
@@ -37,7 +37,7 @@ class Words extends Component<P, S> {
         .catch(err => console.error(err));
     }
 
-    useSelectedList = (event) => {
+    useSelectedList = (event: any) => {
         const listName = event.target.name;
         console.log(listName);
         fetch('/words/find?name=' + listName, {
@@ -52,7 +52,7 @@ class Words extends Component<P, S> {
         .catch(err => console.error(err));
     }
 
-    deleteSelectedList = (event) => {
+    deleteSelectedList = (event: any) => {
         const listName = event.target.name;
         console.log(listName);
         fetch('/words/delete?name=' + listName, {
@@ -69,15 +69,15 @@ class Words extends Component<P, S> {
         .catch(err => console.error(err))
     }
 
-    findAndDeleteList = (name) => {
-        const lists = this.state.wordsList;
-        const filteredList = lists.filter(list => list.name!==name);
+    findAndDeleteList = (name: string) => {
+        const lists: any = this.state.wordsList;
+        const filteredList = lists.filter((list: any) => list.name!==name);
         this.setState({
             wordsList: filteredList
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event: any) => {
         this.setState((prevState) => {
             const newWord = {
                 word: prevState.word,
@@ -95,7 +95,7 @@ class Words extends Component<P, S> {
         event.preventDefault();
     }
 
-    handleChange = (event) => {
+    handleChange = (event: any) => {
         const {name, value} = event.target;
         this.setState({
             [name]: value
@@ -104,6 +104,14 @@ class Words extends Component<P, S> {
 
     render() {
         let items = this.state.wordsList;
+
+        let arrayOfWords = items.map((item: any) => 
+                <li key={item._id} className="lists-of-words">
+                    <span className="list-span">List name: {item.name} - Language: {item.language}</span>
+                    <button name={item.name} className="list-button" onClick={this.useSelectedList}>Use</button>
+                    <button name={item.name} className="list-button" onClick={this.deleteSelectedList}>Delete</button>
+                </li>
+            )
         return (
             <div className="words-item">
                 <div className="add-words-form">
@@ -130,15 +138,7 @@ class Words extends Component<P, S> {
                     </form>
                     <button onClick={this.downloadAllLists}>Display all saved lists</button>
                     <ul>
-                        {
-                            items.map(item => 
-                                <li key={item._id} className="lists-of-words">
-                                    <span className="list-span">List name: {item.name} - Language: {item.language}</span>
-                                    <button name={item.name} className="list-button" onClick={this.useSelectedList}>Use</button>
-                                    <button name={item.name} className="list-button" onClick={this.deleteSelectedList}>Delete</button>
-                                </li>
-                            )
-                        }
+                        {arrayOfWords}
                     </ul>
                 </div> 
                 <PostWords data={this.state.list} />
