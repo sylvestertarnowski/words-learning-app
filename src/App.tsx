@@ -7,8 +7,6 @@ class App extends Component {
   render() {
     return (
       <div className="main-container">
-        <Header />
-        <Words />
       </div>
     )
   }
