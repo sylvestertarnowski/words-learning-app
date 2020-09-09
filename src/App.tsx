@@ -1,15 +1,13 @@
-import React, {Component} from "react";
-import Words from "./Words";
+import React from "react";
 import "./index.css";
-import Header from "./Header";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="main-container">
-      </div>
-    )
-  }
+const App = () => {
+
+  return (
+    <div className="main-container">
+      Hello World!
+    </div>
+  )
 }
 
 export default App;

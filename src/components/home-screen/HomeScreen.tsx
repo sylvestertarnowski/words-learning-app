@@ -1,3 +1,12 @@
 import React from 'react';
+import './HomeScreen.css';
 
-const HomeS
+const HomeScreen = () => {
+  return (
+    <div>
+      This is homescreen!
+    </div>
+  )
+}
+
+export default HomeScreen;
