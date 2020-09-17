@@ -8,6 +8,7 @@ import {
   Toolbar,
   makeStyles,
   Typography,
+  Container,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useLocation, NavLink } from 'react-router-dom';
@@ -93,21 +94,23 @@ const Navbar = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            onClick={handleOpenMenu}
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon color="inherit" />
-          </IconButton>
-          {menuElement}
-          <Typography variant="h6" className={classes.title}>
-            {getTitleFromPathname(location.pathname)}
-          </Typography>
-        </Toolbar>
+        <Container>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              onClick={handleOpenMenu}
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon color="inherit" />
+            </IconButton>
+            {menuElement}
+            <Typography variant="h6" className={classes.title}>
+              {getTitleFromPathname(location.pathname)}
+            </Typography>
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );
