@@ -1,0 +1,11 @@
+.Navbar-menu-link {
+  text-decoration: none;
+}
+
+.Navbar-menu-link:visited {
+  color: inherit;
+}
+
+.Navbar-menu-link__active {
+  font-weight: 600;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Navbar.css';
 import {
   AppBar,
   Menu,
@@ -9,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,10 +69,22 @@ const Navbar = () => {
       onClose={handleCloseMenu}
     >
       <MenuItem onClick={handleCloseMenu}>
-        <Link to="/home-screen">Home Screen</Link>
+        <NavLink
+          activeClassName="Navbar-menu-link__active"
+          className="Navbar-menu-link"
+          to="/home-screen"
+        >
+          Home Screen
+        </NavLink>
       </MenuItem>
       <MenuItem onClick={handleCloseMenu}>
-        <Link to="/new-set">New Set</Link>
+        <NavLink
+          activeClassName="Navbar-menu-link__active"
+          className="Navbar-menu-link"
+          to="/new-set"
+        >
+          New Set
+        </NavLink>
       </MenuItem>
     </Menu>
   );
