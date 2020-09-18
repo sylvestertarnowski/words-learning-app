@@ -7,14 +7,14 @@ import {
   WordsSets,
 } from './wordsSetsActions';
 
-enum Languages {
+export enum Languages {
   polish = 'polish',
   english = 'english',
   french = 'french',
 }
 
 type BaseWord = {
-  [key in Languages]: string;
+  [value in Languages]?: string;
 };
 
 export interface Word extends BaseWord {
@@ -23,8 +23,8 @@ export interface Word extends BaseWord {
 
 export type WordsSingleSet = {
   languages: {
-    primary: Languages;
-    secondary: Languages;
+    primary: keyof typeof Languages;
+    secondary: keyof typeof Languages;
   };
   title: string;
   description: string;

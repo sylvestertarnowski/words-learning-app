@@ -89,7 +89,6 @@ const Navbar = () => {
       </MenuItem>
     </Menu>
   );
-  console.log(location);
 
   return (
     <div className={classes.root}>

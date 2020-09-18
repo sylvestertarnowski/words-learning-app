@@ -1,14 +1,18 @@
 import { TextField } from '@material-ui/core';
 import React, { ChangeEvent, useState } from 'react';
+import { createGuid } from '../../store';
+import { WordsSingleSet } from '../../store/sets/wordsSetsReducer';
+import AddWordPairInput from './add-word-pair-input/AddWordPairInput';
 
 const NewSet = () => {
-  const [state, setState] = useState({
+  const [state, setState] = useState<WordsSingleSet>({
     languages: {
       primary: 'polish',
       secondary: 'english',
     },
-    title: null,
-    description: null,
+    title: '',
+    description: '',
+    guid: '',
     words: [],
   });
 
@@ -22,7 +26,25 @@ const NewSet = () => {
     }));
   };
 
-  const { title, description } = state;
+  const handleAddWordPair = (values: {
+    primaryValue: string;
+    secondaryValue: string;
+  }) => {
+    const { primaryValue, secondaryValue } = values;
+    setState((prevState) => ({
+      ...prevState,
+      words: [
+        ...prevState.words,
+        {
+          guid: createGuid(),
+          [state.languages.primary]: primaryValue,
+          [state.languages.secondary]: secondaryValue,
+        },
+      ],
+    }));
+  };
+
+  const { title, description, languages } = state;
 
   return (
     <div className="NewSet">
@@ -39,6 +61,10 @@ const NewSet = () => {
         required
         name="description"
         onChange={handleChange}
+      />
+      <AddWordPairInput
+        handleSubmit={handleAddWordPair}
+        languages={languages}
       />
     </div>
   );
