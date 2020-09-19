@@ -1,8 +1,9 @@
 import { TextField } from '@material-ui/core';
 import React, { ChangeEvent, useState } from 'react';
 import { createGuid } from '../../store';
-import { WordsSingleSet } from '../../store/sets/wordsSetsReducer';
-import AddWordPairInput from './add-word-pair-input/AddWordPairInput';
+import { Word, WordsSingleSet } from '../../store/sets/wordsSetsReducer';
+import AddWordPair from './add-word-pair/AddWordPair';
+import EditWordPair from './edit-word-pair/EditWordPair';
 
 const NewSet = () => {
   const [state, setState] = useState<WordsSingleSet>({
@@ -46,8 +47,33 @@ const NewSet = () => {
 
   const { title, description, languages } = state;
 
+  const saveWordPairChanges = (changedValues: Word) => {
+    setState((prevState) => {
+      const updatedWords = prevState.words.map((word) => {
+        if (word.guid === changedValues.guid) {
+          return changedValues;
+        }
+        return word;
+      });
+      return {
+        ...prevState,
+        words: updatedWords,
+      };
+    });
+  };
+
+  const listOfWordPairs = state.words.map((word) => (
+    <EditWordPair
+      key={word.guid}
+      languages={languages}
+      valuesSeed={word}
+      saveChanges={saveWordPairChanges}
+    />
+  ));
+
   return (
     <div className="NewSet">
+      <h2>{title}</h2>
       <TextField
         value={title}
         label="Set Title"
@@ -55,17 +81,16 @@ const NewSet = () => {
         name="title"
         onChange={handleChange}
       />
+      <h3>{description}</h3>
       <TextField
         value={description}
         label="Set Description"
-        required
         name="description"
         onChange={handleChange}
       />
-      <AddWordPairInput
-        handleSubmit={handleAddWordPair}
-        languages={languages}
-      />
+      <h3>Words Set</h3>
+      {listOfWordPairs}
+      <AddWordPair handleSubmit={handleAddWordPair} languages={languages} />
     </div>
   );
 };

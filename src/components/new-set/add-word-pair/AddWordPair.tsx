@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { WordsSingleSet } from '../../../store/sets/wordsSetsReducer';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 type Props = {
   handleSubmit: (values: {
@@ -15,11 +15,13 @@ const initialState = {
   secondary: '',
 };
 
-const AddWordPairInput: React.FC<Props> = ({ handleSubmit, languages }) => {
+const AddWordPair: React.FC<Props> = ({ handleSubmit, languages }) => {
   const [state, setState] = useState({
     ...initialState,
   });
   const { primary, secondary } = state;
+
+  const firstInput = useRef<HTMLInputElement>();
 
   const internalHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ const AddWordPairInput: React.FC<Props> = ({ handleSubmit, languages }) => {
       secondaryValue: secondary,
     });
     setState({ ...initialState });
+    firstInput?.current?.focus();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,8 +42,9 @@ const AddWordPairInput: React.FC<Props> = ({ handleSubmit, languages }) => {
   };
 
   return (
-    <form onSubmit={internalHandleSubmit} className="AddWordPairInput">
+    <form onSubmit={internalHandleSubmit} className="AddWordPair">
       <TextField
+        inputRef={firstInput}
         label={languages.primary}
         value={primary}
         onChange={handleChange}
@@ -57,4 +61,4 @@ const AddWordPairInput: React.FC<Props> = ({ handleSubmit, languages }) => {
   );
 };
 
-export default AddWordPairInput;
+export default AddWordPair;
